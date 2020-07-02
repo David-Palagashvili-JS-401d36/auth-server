@@ -1,6 +1,4 @@
 'use strict'
-// TODO: set up class called user that utilizes the user-schema.
-
 // require our model, schema, and auth middleware
 const schema = require('./users-schema.js');
 
