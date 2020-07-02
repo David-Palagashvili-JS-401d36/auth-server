@@ -1,7 +1,7 @@
 {
   "name": "auth-server",
   "version": "1.0.0",
-  "description": " an auth to serve data for a virtual storefront, which displays categories and products to a potential shopper.",
+  "description": "an auth to serve data for a virtual storefront, which displays categories and products to a potential shopper.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
