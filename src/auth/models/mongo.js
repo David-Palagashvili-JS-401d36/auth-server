@@ -10,7 +10,7 @@ class DBinterface {
         return this.schema.find(parameter)
         .then(result => {
             let requestFormatted = {
-                result: result,
+                results: result,
                 count: result.length
             }
             return requestFormatted;

@@ -3,4 +3,7 @@
 const base64 = require('base-64');
 // require our user model
 const userModel = require('../models/user-model.js');
-
+// followed class example for authentication
+async function basicAuth(request, response, next) {
+    
+}

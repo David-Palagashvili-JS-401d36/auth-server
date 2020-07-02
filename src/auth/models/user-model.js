@@ -1,3 +1,4 @@
+'use strict'
 // TODO: set up class called user that utilizes the user-schema.
 
 // require our model, schema, and auth middleware
@@ -12,15 +13,15 @@ const jsonWebToken = require('jsonwebtoken');
 // just like oauth, we have set a secret set of characters.
 let SECRET = process.env.SECRET;
 
-// a "user" class that utilizes the user-schema.
+// "User" class that utilizes the user-schema.
 class User extends Model {
     constructor() {
         super(schema);
-    };
-    static passHash(password) {
-        return bCrypt.hash(password, 5);
-    };
-    static async authenticate (username, password) {
+    }; 
+    static passHash(password) { // Before we save a record,
+        return bCrypt.hash(password, 5); // we hash the plain text password entered,
+    }; // we get back a promise or rejected with an error.
+    static async authenticate(username, password) { // method to authenticate a user using the hashed password
         try {
             let user = await schema.find({username});
             let authorized = await bCrypt.compare(password, user[0].password);
@@ -29,11 +30,15 @@ class User extends Model {
             } else {
                 return false;
             };
-        } catch (error) {
+        } catch(error) {
             console.error('it didn\'t like that: ', error)
             return false;
         };
-    
+    }; // generate a Token following a valid login
+    static generateToken(username) {
+        let token = jsonWebToken.sign(username, SECRET);
+        return token;
     };
 };
-
+// export our user model
+module.exports = User;
