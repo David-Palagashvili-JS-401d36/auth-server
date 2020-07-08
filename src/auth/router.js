@@ -1,5 +1,5 @@
 'use strict';
-
+// NOTE to TA: I followed the class example --> https://github.com/codefellows/seattle-javascript-401d36/blob/master/class-12/review/auth-server/src/auth/router.js
 const express = require('express');
 const auth = require('./middleware/basic.js');
 const router = express.Router();
@@ -20,7 +20,6 @@ async function createUser(request, response) {
     let newUser = await User.create( {username: request.body.username, password: password} );
     if (newUser) {
         let token = UserModel.generateToken( {username: request.body.username} )
-        // console.log(UserModel.generateToken({ username: request.body.username }));
         console.log(token);
         response.cookie('token', token);
         response.header('token', token);
@@ -30,6 +29,15 @@ async function createUser(request, response) {
     }
 };
 
-async function UserSignIn(request, response) {}
+async function UserSignIn(request, response) {
+    if (request.user) {
+        let token = await UserModel.generateToken( {username: request.user.username} );
+        response.cookie('token', token);
+        response.header('token', token);
+        response.send( {token, user: request.user} );
+    } else {
+        res.status(403).send('Invalid');
+    }
+}
 
 async function getUsers(request, response) {}
