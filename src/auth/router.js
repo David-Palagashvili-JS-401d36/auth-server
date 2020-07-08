@@ -1,15 +1,19 @@
 'use strict';
-// NOTE to TA: I followed the class example --> https://github.com/codefellows/seattle-javascript-401d36/blob/master/class-12/review/auth-server/src/auth/router.js
 const express = require('express');
+
 const auth = require('./middleware/basic.js');
+
 const router = express.Router();
+
 const UserModel = require('./models/users-model.js');
+
 const User = new UserModel();
 
 router.post('/signup', createUser);
 router.post('/signin', auth, UserSignIn);
 router.get('/users', getUsers);
 
+// NOTE to TA: I followed the class example --> https://github.com/codefellows/seattle-javascript-401d36/blob/master/class-12/review/auth-server/src/auth/router.js
 async function createUser(request, response) {
     let userExists = await User.exists( {username: request.body.username} );
     if (userExists) {
@@ -38,6 +42,11 @@ async function UserSignIn(request, response) {
     } else {
         res.status(403).send('Invalid');
     }
-}
+};
 
-async function getUsers(request, response) {}
+async function getUsers(request, response) {
+    let userQuery = await User.get();
+    response.send(userQuery);
+};
+
+module.exports = router;
