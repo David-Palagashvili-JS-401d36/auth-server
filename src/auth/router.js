@@ -20,14 +20,13 @@ async function createUser(request, response) {
         response.send('user already exists');
         return;
     }
-    let newUser = await UserModel.hashPassword(request.body.password);
+    let password = await UserModel.hashPassword(request.body.password);
     let newUser = await User.create( {username: request.body.username, password: password} );
     if (newUser) {
         let token = UserModel.generateToken( {username: request.body.username} )
-        console.log(token);
         response.cookie('token', token);
         response.header('token', token);
-        response.send('user was signed up');
+        response.send(token);
     } else {
         response.status(403).send('that user is invalid');
     }
@@ -40,7 +39,7 @@ async function UserSignIn(request, response) {
         response.header('token', token);
         response.send( {token, user: request.user} );
     } else {
-        res.status(403).send('Invalid');
+        res.status(403).send('sign in was invalid');
     }
 };
 
