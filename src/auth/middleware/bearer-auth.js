@@ -12,4 +12,12 @@ async function bearerAuth(request, response, next) {
         response.status(401).send('Woah there, we didn\'t get any authorization headers from you!');
     }
     let [authType, token] = request.headers.authorization.split(' '); // split the auth headers to extract token
+    let validatedUser = await UserModel.validateToken(token);
+
+    if (validatedUser) {
+        request.user = validatedUser;
+        next();
+    } else {
+        next('token was invalid')
+    }
 };
