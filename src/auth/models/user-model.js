@@ -8,9 +8,17 @@ const bCrypt = require('bcrypt');
 
 const jsonWebToken = require('jsonwebtoken');
 
-// just like oauth, we have set a secret set of characters.
+// Env vars for tokens
 let SECRET = process.env.SECRET;
 let EXPIRES = process.env.TOKEN_DEATH;
+
+// define user permissions for RBAC. Possible roles can include a regular user, a writer, an editor, and an administrator with full permissions.
+const userRoles = {
+    user: ['read'], // a regular user can only access/view content
+    writer: ['read', 'create'], // a writer can add content
+    editor: ['read', 'create', 'update'], // an editor can add AND modify content
+    admin: ['read', 'create', 'update', 'delete'] // an admin can do it all
+};
 
 // "User" class that utilizes the user-schema.
 class User extends Model {
