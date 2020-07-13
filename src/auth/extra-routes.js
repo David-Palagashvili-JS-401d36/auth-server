@@ -20,7 +20,7 @@ router.get('/secret', bearer, (req, res) => {
 
 // The following routes are basically a means of ensuring that our authorization system works well:
 
-router.get('/read', bearer, permissions('read'), (req, res) => {
+router.get('/read', bearer, permissions('read'), (req, res) => { // // Read the value of the Bearer Token in the authorization header
     res.send('Route /read worked'); // permissions attached inline to all of your routes as described
 });
 
