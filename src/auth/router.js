@@ -10,7 +10,7 @@ const UserModel = require('./models/users-model.js');
 const User = new UserModel();
 
 router.post('/signup', createUser);
-router.post('/signin', auth, UserSignIn);
+router.post('/signin', auth, userSignIn);
 router.get('/users', getUsers);
 
 // NOTE to TA: I followed the class example --> https://github.com/codefellows/seattle-javascript-401d36/blob/master/class-12/review/auth-server/src/auth/router.js
@@ -32,7 +32,7 @@ async function createUser(request, response) {
     }
 };
 
-async function UserSignIn(request, response) {
+async function userSignIn(request, response) {
     if (request.user) {
         let token = await UserModel.generateToken( {username: request.user.username} );
         response.cookie('token', token);

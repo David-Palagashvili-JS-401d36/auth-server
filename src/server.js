@@ -5,15 +5,14 @@ const express = require('express');
 //require router module just like in our last lab, except is lives in a different folder.
 const authenticationRouter = require('./auth/router.js');
 
-//TODO: set up router to test auth routes.
-const testRouter = require('./auth/additional.js');
+const bearerTest = require('./auth/additional.js');
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/', authenticationRouter);
-app.use('/', testRouter);
+app.use('/', bearerTest);
 
 // exports as object to be triggered instead of starting on its own.
 module.exports = {

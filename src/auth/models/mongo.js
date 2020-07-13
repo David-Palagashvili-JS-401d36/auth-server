@@ -1,4 +1,5 @@
-//TODO: set up module as an interface for mongo CRUD operations.
+'use strict';
+// This module acts as an interface for mongo CRUD operations.
 
 class DBinterface {
     constructor(schema) {
