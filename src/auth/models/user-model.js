@@ -26,14 +26,14 @@ class User extends Model {
         super(schema);
     };
 
-    static passHash(password) { // Before we save a record,
-        return bCrypt.hash(password, 5); // we hash the plain text password entered,
+    static passHash(passWord) { // Before we save a record,
+        return bCrypt.hash(passWord, 5); // we hash the plain text password entered,
     };// we get back a promise or rejected with an error.
 
-    static async authenticate(username, password) { // method to authenticate a user using the hashed password
+    static async authenticate(userName, passWord) { // method to authenticate a user using the hashed password
         try {
-            let user = await schema.find( {username} );
-            let authorized = await bCrypt.compare(password, user[0].password);
+            let user = await schema.find( {userName} );
+            let authorized = await bCrypt.compare(passWord, user[0].passWord);
             if (authorized) {
                 return user[0];
             } else {
@@ -44,8 +44,8 @@ class User extends Model {
             return false;
         };
     }; // generate a Token following a valid login
-    static generateToken(username) {
-        let token = jsonWebToken.sign(username, SECRET, {expiresIn: EXPIRES});
+    static generateToken(userName) {
+        let token = jsonWebToken.sign(userName, SECRET, {expiresIn: EXPIRES});
         return token;
     };
 

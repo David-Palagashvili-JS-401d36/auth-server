@@ -5,7 +5,7 @@ const express = require('express');
 //require router module just like in our last lab, except is lives in a different folder.
 const authenticationRouter = require('./auth/router.js');
 
-const bearerTest = require('./auth/additional.js');
+const bearerTest = require('./auth/extra-routes.js');
 
 const app = express();
 
