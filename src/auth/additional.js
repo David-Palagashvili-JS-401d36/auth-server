@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO: test auth routes, /secret goes here:
-
 // express middleware
 const express = require('express');
 const router = express.Router();
