@@ -57,9 +57,12 @@ class User extends Model {
             return false; // Otherwise, its false so return an error.
         }
     };
-    // TODO: create a method that adds infor to a user without saving it to the DB
+    // Method that adds information to a user without saving it to the DB
     async createTempUser(data) {
-
+        this.userName = data.userName;
+        this.passWord = data.passWord;
+        this.role = data.role;
+        return this;
     };
     // TODO: Create a new method, perhaps called .can(permission) that will accept a capability
     // Validate this against the permissions on the user, granted by the Role they are assigned to
