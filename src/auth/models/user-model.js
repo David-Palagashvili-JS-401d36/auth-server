@@ -12,7 +12,7 @@ const jsonWebToken = require('jsonwebtoken');
 let SECRET = process.env.SECRET;
 let EXPIRES = process.env.TOKEN_DEATH;
 
-// define user permissions for RBAC. Possible roles can include a regular user, a writer, an editor, and an administrator with full permissions.
+// define user permissions for RBAC. Supported roles include a regular user, a writer, an editor, and an administrator with full permissions.
 const userRoles = {
     user: ['read'], // a regular user can only access/view content
     writer: ['read', 'create'], // a writer can add content
@@ -32,7 +32,7 @@ class User extends Model {
 
     static async authenticate(username, password) { // method to authenticate a user using the hashed password
         try {
-            let user = await schema.find({username});
+            let user = await schema.find( {username} );
             let authorized = await bCrypt.compare(password, user[0].password);
             if (authorized) {
                 return user[0];
@@ -56,6 +56,16 @@ class User extends Model {
         } catch(error) {
             return false; // Otherwise, its false so return an error.
         }
+    };
+    // TODO: create a method that adds infor to a user without saving it to the DB
+    async createTempUser(data) {
+
+    };
+    // TODO: Create a new method, perhaps called .can(permission) that will accept a capability
+    // Validate this against the permissions on the user, granted by the Role they are assigned to
+    // Otherwise, return an error
+    async validatePermission (capability) {
+
     };
 };
 // export our user model
