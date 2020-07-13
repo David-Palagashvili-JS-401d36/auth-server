@@ -5,6 +5,14 @@ class DBinterface {
     constructor(schema) {
         this.schema = schema;
     };
+    fetchUserByName(userName) { // method that gets by username, a record stored in the db.
+        let parameter = userName ? {userName} : {};
+        return this.schema.find(parameter)
+        .then(result => {
+            let requestFormatted = result[0]; // index zero should be the username according to our schema
+            return requestFormatted;
+        }).catch(error => console.log(error));
+    };
     // performs a find() query in our schema
     read(_id) {
         let parameter = _id ? {_id} : {};
