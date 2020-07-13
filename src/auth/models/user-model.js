@@ -64,12 +64,16 @@ class User extends Model {
         this.role = data.role;
         return this;
     };
-    // TODO: Create a new method, perhaps called .can(permission) that will accept a capability
-    // Validate this against the permissions on the user, granted by the Role they are assigned to
-    // Otherwise, return an error
-    async validatePermission (capability) {
-
+    
+    async validatePermission (capability) { // will accept a capability
+        if (userRoles[this.role].includes(capability)) { // Validate this against the permissions on the user granted by the Role they are assigned to (this.role)
+            //console.log('returns true');
+            return true;
+        }
+        //console.log('returns false');
+        return false; // Otherwise, return an error
     };
 };
+
 // export our user model
 module.exports = User;
