@@ -7,6 +7,9 @@ const router = express.Router();
 // bearer auth middleware
 const bearer = require('./middleware/bearer-auth.js');
 
+// Permissions for RBAC
+const permissions = require('./middleware/authorize.js');
+
 // instantiate user model
 const UserModel = require('./models/user-model.js');
 const User = new UserModel();
