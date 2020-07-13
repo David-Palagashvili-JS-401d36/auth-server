@@ -1,6 +1,6 @@
 'use strict'
 // require our model, schema, and auth middleware
-const schema = require('./users-schema.js');
+const schema = require('./user-schema.js');
 
 const Model = require('./mongo.js');
 
@@ -10,6 +10,7 @@ const jsonWebToken = require('jsonwebtoken');
 
 // just like oauth, we have set a secret set of characters.
 let SECRET = process.env.SECRET;
+let EXPIRES = process.env.TOKEN_DEATH;
 
 // "User" class that utilizes the user-schema.
 class User extends Model {
@@ -39,7 +40,7 @@ class User extends Model {
         let token = jsonWebToken.sign(username, SECRET, {expiresIn: EXPIRES});
         return token;
     };
-    
+
     static async validateToken(token) { // method that will accept a token, and use the JWT library to validate it with the secret
         try { // If it’s valid look up the user,
             let user = await jsonWebToken.verify(token, SECRET);
