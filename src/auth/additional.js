@@ -15,22 +15,22 @@ router.get('/secret', bearer, (req, res) => {
     res.send(req.user);
 });
 
-// TODO: wire up the following routes as a means of ensuring that our authorization system works well:
+// The following routes are basically a means of ensuring that our authorization system works well:
 
 router.get('/read', bearer, permissions('read'), (req, res) => {
-
+    res.send('Route /read worked');
 });
 
 router.post('/add', bearer, permissions('create'), (req, res) => {
-    
+    res.send('Route /add worked');
 });
 
 router.put('/change', bearer, permissions('update'), (req, res) => {
-    
+    res.send('Route /change worked');
 });
 
 router.delete('/remove', bearer, permissions('delete'), (req, res) => {
-    
+    res.send('Route /remove worked');
 });
 
 module.exports = router;
